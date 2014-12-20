@@ -1,7 +1,0 @@
-- config option for limit and only showing if reached limit
-- more dagger integration
-- uncheck all downloaded
-- fix rotation bugs
-- make home page non-lazy
-- add different size drawables
-- caching system
