@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="key_email_address">key_email_address</string>
+    <string name="key_single_episode">key_single_episode</string>
+    <string name="key_torrent_service">key_torrent_service</string>
+    <string name="key_the_pirate_bay_url">key_the_pirate_bay_url</string>
+</resources>

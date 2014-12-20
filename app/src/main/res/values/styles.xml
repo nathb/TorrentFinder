@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="TorrentHeaderPrimarySection">
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingBottom">@dimen/torrent_row_inner_vertical_padding</item>
+    </style>
+
+    <style name="TorrentHeaderSecondarySection">
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingBottom">@dimen/torrent_row_inner_vertical_padding</item>
+    </style>
+
+    <style name="TorrentPrimarySection">
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingBottom">@dimen/torrent_row_inner_vertical_padding</item>
+    </style>
+
+    <style name="TorrentSecondarySection">
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingBottom">@dimen/torrent_row_outer_vertical_padding</item>
+        <item name="android:paddingRight">@dimen/torrent_row_horizontal_padding</item>
+    </style>
+
+    <style name="TorrentProgressText">
+        <item name="android:textSize">9sp</item>
+    </style>
+
+    <style name="InputLabel">
+        <item name="android:layout_gravity">right|center_vertical</item>
+        <item name="android:paddingRight">@dimen/torrent_row_horizontal_padding</item>
+    </style>
+
+    <style name="InputBox">
+        <item name="android:minWidth">@dimen/dialog_input_min_length</item>
+    </style>
+
+    <style name="InputTableRow">
+        <item name="android:paddingBottom">@dimen/torrent_row_inner_vertical_padding</item>
+    </style>
+
+</resources>

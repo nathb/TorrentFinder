@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <TableRow style="@style/InputTableRow">
+
+        <TextView
+            android:id="@+id/TitleLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_label_print_title"
+            style="@style/InputLabel"/>
+
+        <EditText
+            android:id="@+id/TitleInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/InputBox"/>
+
+    </TableRow>
+
+    <TableRow style="@style/InputTableRow">
+
+        <TextView
+            android:id="@+id/TorrentSeachTermLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_label_torrent_search"
+            style="@style/InputLabel"/>
+
+        <EditText
+            android:id="@+id/TorrentSeachTermInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/InputBox"/>
+
+    </TableRow>
+
+    <TableRow style="@style/InputTableRow">
+
+        <TextView
+            android:id="@+id/EpisodeListTermLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_label_episode_list"
+            style="@style/InputLabel"/>
+
+        <EditText
+            android:id="@+id/EpisodeListTermInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/InputBox"/>
+
+    </TableRow>
+
+</TableLayout>

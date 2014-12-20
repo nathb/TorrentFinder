@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.nathb.torrentfinder.ui.preference.EditTextWithSummaryPreference
+        android:key="@string/key_email_address"
+        android:title="@string/settings_label_email"/>
+
+    <CheckBoxPreference
+        android:key="@string/key_single_episode"
+        android:title="@string/settings_label_single_episode"
+        android:summary="@string/settings_description_single_episode"/>
+
+    <ListPreference
+        android:key="@string/key_torrent_service"
+        android:title="@string/settings_label_torrent_service"/>
+
+    <com.nathb.torrentfinder.ui.preference.EditTextWithSummaryPreference
+        android:key="@string/key_the_pirate_bay_url"
+        android:title="@string/settings_label_the_pirate_bay_url"/>
+
+</PreferenceScreen>
