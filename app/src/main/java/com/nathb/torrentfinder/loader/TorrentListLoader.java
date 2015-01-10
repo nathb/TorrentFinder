@@ -10,10 +10,9 @@ import com.nathb.torrentfinder.model.Torrent;
 import com.nathb.torrentfinder.model.TorrentDataWrapper;
 import com.nathb.torrentfinder.provider.EpisodeProvider;
 import com.nathb.torrentfinder.service.TorrentService;
+import com.nathb.torrentfinder.service.exception.TorrentResponseException;
 import com.nathb.torrentfinder.service.factory.TorrentServiceFactory;
-import com.nathb.torrentfinder.service.factory.TorrentServiceFactory.TorrentServiceType;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +72,7 @@ public class TorrentListLoader extends AbstractLoader<TorrentDataWrapper> {
                 final List<Torrent> torrents;
                 try {
                     torrents = torrentService.getTorrents(show, episode);
-                } catch (IOException e) {
+                } catch (TorrentResponseException e) {
                     result.setError(e);
                     return result;
                 }

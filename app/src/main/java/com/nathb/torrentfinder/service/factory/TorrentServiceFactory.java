@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.nathb.torrentfinder.config.Config;
 import com.nathb.torrentfinder.service.TorrentService;
+import com.nathb.torrentfinder.service.impl.KickAssService;
 import com.nathb.torrentfinder.service.impl.OldPirateBayService;
 import com.nathb.torrentfinder.service.impl.SFWTorrentService;
 import com.nathb.torrentfinder.service.impl.ThePirateBayService;
@@ -13,6 +14,7 @@ public class TorrentServiceFactory {
     public enum TorrentServiceType {
         ThePirateBay,
         OldPirateBay,
+        KickAss,
         SFWTorrent
     }
 
@@ -25,6 +27,9 @@ public class TorrentServiceFactory {
                 break;
             case OldPirateBay:
                 service = new OldPirateBayService();
+                break;
+            case KickAss:
+                service = new KickAssService();
                 break;
             case SFWTorrent:
                 service = new SFWTorrentService();
