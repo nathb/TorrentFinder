@@ -1,5 +1,7 @@
 package com.nathb.torrentfinder.service.impl;
 
+import com.nathb.torrentfinder.model.Episode;
+import com.nathb.torrentfinder.model.Show;
 import com.nathb.torrentfinder.model.Torrent;
 import com.nathb.torrentfinder.util.FormatUtil;
 
@@ -17,15 +19,11 @@ public class OldPirateBayService extends AbstractJsoupTorrentService {
     private String mTitleLower;
 
     @Override
-    protected String buildUrl(String title, int seasonNumber, int episodeNumber) {
-        mTitleLower = title.toLowerCase();
-        final String searchTitle = new StringBuilder(title)
-                .append(" S").append(FormatUtil.getFormattedNumber(seasonNumber))
-                .append("E").append(FormatUtil.getFormattedNumber(episodeNumber))
-                .toString().replace(" ", "+");
-
+    protected String buildUrl(Show show, Episode episode) {
+        mTitleLower = show.getTitle().toLowerCase();
+        final String searchQuery = FormatUtil.getSearchQueryFormat(show, episode);
         return new StringBuilder(BASE_URL)
-                .append(searchTitle)
+                .append(searchQuery.replace(" ", "+"))
                 .append(SORT_ORDER)
                 .toString();
     }

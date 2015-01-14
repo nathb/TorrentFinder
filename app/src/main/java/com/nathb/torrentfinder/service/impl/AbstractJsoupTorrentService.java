@@ -13,12 +13,12 @@ import java.util.List;
 
 public abstract class AbstractJsoupTorrentService implements TorrentService {
 
-    protected abstract String buildUrl(String title, int seasonNumber, int episodeNumber);
+    protected abstract String buildUrl(Show show, Episode episode);
     protected abstract List<Torrent> parseResponse(Document document);
 
     @Override
     public List<Torrent> getTorrents(Show show, Episode episode) throws TorrentResponseException {
-        final String url = buildUrl(show.getTitle(), episode.getSeasonNumber(), episode.getEpisodeNumber());
+        final String url = buildUrl(show, episode);
 
         final Document document;
         try {

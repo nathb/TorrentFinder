@@ -1,8 +1,9 @@
 package com.nathb.torrentfinder.service.impl;
 
 import android.net.Uri;
-import android.util.Log;
 
+import com.nathb.torrentfinder.model.Episode;
+import com.nathb.torrentfinder.model.Show;
 import com.nathb.torrentfinder.model.Torrent;
 import com.nathb.torrentfinder.util.FormatUtil;
 
@@ -18,14 +19,11 @@ public class KickAssService extends AbstractJsonTorrentService {
     private static final String BASE_URL = "https://kickass.so/json.php";
 
     @Override
-    protected String buildUrl(String title, int seasonNumber, int episodeNumber) {
-        final StringBuilder searchTitle = new StringBuilder(title)
-                .append(" S").append(FormatUtil.getFormattedNumber(seasonNumber))
-                .append("E").append(FormatUtil.getFormattedNumber(episodeNumber));
-
+    protected String buildUrl(Show show, Episode episode) {
+        final String searchQuery = FormatUtil.getSearchQueryFormat(show, episode);
         final Uri uri = new Uri.Builder()
                 .encodedPath(BASE_URL)
-                .appendQueryParameter("q", searchTitle.toString())
+                .appendQueryParameter("q", searchQuery)
                 .appendQueryParameter("field", "seeders")
                 .appendQueryParameter("order", "desc")
                 .build();

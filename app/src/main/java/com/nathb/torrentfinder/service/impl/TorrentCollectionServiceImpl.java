@@ -2,10 +2,8 @@ package com.nathb.torrentfinder.service.impl;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.nathb.torrentfinder.config.Config;
-import com.nathb.torrentfinder.db.EpisodeDao;
 import com.nathb.torrentfinder.model.Episode;
 import com.nathb.torrentfinder.model.TorrentDataWrapper;
 import com.nathb.torrentfinder.service.TorrentCollectionService;
@@ -40,14 +38,14 @@ public class TorrentCollectionServiceImpl implements TorrentCollectionService {
     }
 
     @Override
-    public void send(Context context, EpisodeDao episodeDao) {
+    public void send(Context context) {
         final Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("message/rfc822");
         intent.putExtra(Intent.EXTRA_EMAIL, getEmailAddress(context));
         intent.putExtra(Intent.EXTRA_SUBJECT, EMAIL_TITLE);
         intent.putExtra(Intent.EXTRA_TEXT, generateEmailBody());
         context.startActivity(Intent.createChooser(intent, "Send Torrent Links via Email"));
-        setTorrentsAsDownloaded(episodeDao);
+        setTorrentsAsDownloaded(context);
         mTorrentList.clear();
     }
 
@@ -69,12 +67,12 @@ public class TorrentCollectionServiceImpl implements TorrentCollectionService {
         return sb.toString();
     }
 
-    private void setTorrentsAsDownloaded(EpisodeDao episodeDao) {
+    private void setTorrentsAsDownloaded(Context context) {
         final List<Episode> episodes = new ArrayList<Episode>();
         for (TorrentDataWrapper wrapper : mTorrentList) {
             episodes.add(wrapper.getEpisode());
         }
-        new SetEpisodesDownloadedTask(episodeDao, episodes).execute();
+        new SetEpisodesDownloadedTask(context, episodes).execute();
     }
 
 }

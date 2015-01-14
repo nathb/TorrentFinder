@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.nathb.torrentfinder.config.Config;
+import com.nathb.torrentfinder.model.Episode;
+import com.nathb.torrentfinder.model.Show;
 import com.nathb.torrentfinder.model.Torrent;
 import com.nathb.torrentfinder.util.FormatUtil;
 
@@ -16,11 +18,6 @@ import java.util.List;
 
 public class ThePirateBayService extends AbstractJsoupTorrentService {
 
-    // http://try.jsoup.org/
-    // selector ref: http://jsoup.org/cookbook/extracting-data/selector-syntax
-
-    // https://thepiratebay.se/search/the%20big%20bang%20theory/0/7/0
-    // The Big Bang Theory S08E05 HDTV x264-LOL [eztv]
     public static final String DEFAULT_URL = "thepiratebay.se";
     private static final String BASE_URL_FORMAT = "https://%s/search/";
     private static final String SORT_ORDER = "0/7/0";
@@ -32,15 +29,12 @@ public class ThePirateBayService extends AbstractJsoupTorrentService {
     }
 
     @Override
-    protected String buildUrl(String title, int seasonNumber, int episodeNumber) {
-        final StringBuilder searchTitle = new StringBuilder(title)
-                .append(" S").append(FormatUtil.getFormattedNumber(seasonNumber))
-                .append("E").append(FormatUtil.getFormattedNumber(episodeNumber));
-
+    protected String buildUrl(Show show, Episode episode) {
+        final String searchQuery = FormatUtil.getSearchQueryFormat(show, episode);
         final String baseUrl = String.format(BASE_URL_FORMAT, Config.getThePirateBayUrl(mContext));
         final Uri uri = new Uri.Builder()
                 .encodedPath(baseUrl)
-                .appendPath(searchTitle.toString())
+                .appendPath(searchQuery)
                 .appendEncodedPath(SORT_ORDER).build();
 
         return uri.toString();
