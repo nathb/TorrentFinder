@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.nathb.torrentfinder.R;
-import com.nathb.torrentfinder.db.ShowDao;
 import com.nathb.torrentfinder.loader.AbstractLoader;
 import com.nathb.torrentfinder.loader.ShowListLoader;
 import com.nathb.torrentfinder.model.Show;
@@ -103,7 +102,7 @@ public class ShowListActivity extends AbstractListLoaderActivity<Show> {
     }
 
     private void delete(Show show) {
-        new DeleteShowTask(new ShowDao(this), show, new OnShowDeletedListener()).execute();
+        new DeleteShowTask(this, show, new OnShowDeletedListener()).execute();
     }
 
     private class OnShowDeletedListener implements DeleteShowTask.OnShowDeletedListener {

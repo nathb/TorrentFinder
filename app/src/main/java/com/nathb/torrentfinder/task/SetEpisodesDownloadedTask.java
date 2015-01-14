@@ -1,11 +1,15 @@
 package com.nathb.torrentfinder.task;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
+import com.nathb.torrentfinder.TorrentFinderApplication;
 import com.nathb.torrentfinder.db.EpisodeDao;
 import com.nathb.torrentfinder.model.Episode;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class SetEpisodesDownloadedTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -13,17 +17,17 @@ public class SetEpisodesDownloadedTask extends AsyncTask<Void, Void, Boolean> {
         void onAllEpisodesDownloaded();
     }
 
-    private EpisodeDao mEpisodeDao;
+    @Inject EpisodeDao mEpisodeDao;
     private List<Episode> mEpisodes;
     private SetAllEpisodesDownloadedListener mListener;
 
-    public SetEpisodesDownloadedTask(EpisodeDao episodeDao, List<Episode> episodes) {
-        this(episodeDao, episodes, null);
+    public SetEpisodesDownloadedTask(Context context, List<Episode> episodes) {
+        this(context, episodes, null);
     }
 
-    public SetEpisodesDownloadedTask(EpisodeDao episodeDao, List<Episode> episodes,
+    public SetEpisodesDownloadedTask(Context context, List<Episode> episodes,
                                      SetAllEpisodesDownloadedListener listener) {
-        mEpisodeDao = episodeDao;
+        ((TorrentFinderApplication) context.getApplicationContext()).inject(this);
         mEpisodes = episodes;
         mListener = listener;
     }

@@ -2,6 +2,7 @@ package com.nathb.torrentfinder.loader;
 
 import android.content.Context;
 
+import com.nathb.torrentfinder.TorrentFinderApplication;
 import com.nathb.torrentfinder.config.Config;
 import com.nathb.torrentfinder.db.ShowDao;
 import com.nathb.torrentfinder.model.Episode;
@@ -16,6 +17,8 @@ import com.nathb.torrentfinder.service.factory.TorrentServiceFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class TorrentListLoader extends AbstractLoader<TorrentDataWrapper> {
 
     public interface ProgressListener {
@@ -23,12 +26,14 @@ public class TorrentListLoader extends AbstractLoader<TorrentDataWrapper> {
         void onEpisodeFinished(Episode episode, int torrentCount);
     }
 
+    @Inject ShowDao mShowDao;
     private Context mContext;
     private ProgressListener mListener;
     private boolean mShouldQuerySingleEpisode;
 
     public TorrentListLoader(Context context, ProgressListener listener) {
         super(context);
+        ((TorrentFinderApplication) context.getApplicationContext()).inject(this);
         mContext = context;
         mListener = listener;
         mShouldQuerySingleEpisode = Config.getSingleEpisodePreference(context);
@@ -43,8 +48,7 @@ public class TorrentListLoader extends AbstractLoader<TorrentDataWrapper> {
         final TorrentService torrentService = TorrentServiceFactory.getTorrentService(getContext());
 
         // Get all shows from database
-        final ShowDao showDao = new ShowDao(mContext);
-        final List<Show> shows = showDao.getAll();
+        final List<Show> shows = mShowDao.getAll();
 
         for (Show show : shows) {
 

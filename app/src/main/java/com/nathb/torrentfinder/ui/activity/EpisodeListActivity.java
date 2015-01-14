@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 
 import com.nathb.torrentfinder.R;
-import com.nathb.torrentfinder.db.EpisodeDao;
 import com.nathb.torrentfinder.loader.AbstractLoader;
 import com.nathb.torrentfinder.loader.EpisodeListLoader;
 import com.nathb.torrentfinder.loader.LoaderResult;
@@ -79,7 +78,7 @@ public class EpisodeListActivity extends AbstractListLoaderActivity<Episode> {
         final LoaderResult<List<Episode>> loaderResult = getLoaderResult();
         if (loaderResult != null && loaderResult.getResult() != null && loaderResult.getError() == null) {
             new SetEpisodesDownloadedTask(
-                    new EpisodeDao(this), loaderResult.getResult(), new SetAllEpisodesDownloadedListener())
+                    this, loaderResult.getResult(), new SetAllEpisodesDownloadedListener())
                     .execute();
         }
     }

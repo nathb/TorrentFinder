@@ -9,12 +9,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.nathb.torrentfinder.R;
-import com.nathb.torrentfinder.db.ShowDao;
 import com.nathb.torrentfinder.model.Show;
 import com.nathb.torrentfinder.task.AddShowTask;
 
@@ -93,7 +91,7 @@ public class AddShowDialogFragment extends DialogFragment {
                     mTitleInput.getText().toString(),
                     mTorrentSearchTermInput.getText().toString(),
                     mEpisodeListTermInput.getText().toString());
-            new AddShowTask(new ShowDao(getActivity()), show, mListener).execute();
+            new AddShowTask(getActivity(), show, mListener).execute();
             alertDialog.dismiss();
         }
     }

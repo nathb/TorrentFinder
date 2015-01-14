@@ -10,7 +10,6 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.nathb.torrentfinder.R;
-import com.nathb.torrentfinder.db.EpisodeDao;
 import com.nathb.torrentfinder.model.Episode;
 import com.nathb.torrentfinder.task.UpdateEpisodeTask;
 
@@ -23,13 +22,11 @@ public class EpisodeListAdapter extends ArrayAdapter<Episode> {
 
     private LayoutInflater mInflater;
     private EpisodeOnCheckedChangedListener mOnCheckedChangedListener;
-    private EpisodeDao mEpisodeDao;
 
     public EpisodeListAdapter(Context context, int resourceId, List<Episode> objects) {
         super(context, resourceId, objects);
         mInflater = LayoutInflater.from(context);
         mOnCheckedChangedListener = new EpisodeOnCheckedChangedListener();
-        mEpisodeDao = new EpisodeDao(context);
     }
 
     @Override
@@ -61,7 +58,7 @@ public class EpisodeListAdapter extends ArrayAdapter<Episode> {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             final Episode episode = (Episode) buttonView.getTag();
             episode.setDownloaded(isChecked);
-            new UpdateEpisodeTask(mEpisodeDao, episode, isChecked).execute();
+            new UpdateEpisodeTask(getContext(), episode, isChecked).execute();
         }
     }
 

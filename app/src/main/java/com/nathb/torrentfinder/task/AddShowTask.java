@@ -1,9 +1,13 @@
 package com.nathb.torrentfinder.task;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
+import com.nathb.torrentfinder.TorrentFinderApplication;
 import com.nathb.torrentfinder.db.ShowDao;
 import com.nathb.torrentfinder.model.Show;
+
+import javax.inject.Inject;
 
 public class AddShowTask extends AsyncTask<Void, Void, Void> {
 
@@ -11,12 +15,12 @@ public class AddShowTask extends AsyncTask<Void, Void, Void> {
         void onShowAdded();
     }
 
-    private ShowDao mShowDao;
+    @Inject ShowDao mShowDao;
     private Show mShow;
     private OnShowAddedListener mListener;
 
-    public AddShowTask(ShowDao showDao, Show show, OnShowAddedListener listener) {
-        mShowDao = showDao;
+    public AddShowTask(Context context, Show show, OnShowAddedListener listener) {
+        ((TorrentFinderApplication) context.getApplicationContext()).inject(this);
         mShow = show;
         mListener = listener;
     }

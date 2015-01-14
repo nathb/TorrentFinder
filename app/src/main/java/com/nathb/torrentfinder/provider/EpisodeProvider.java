@@ -3,6 +3,7 @@ package com.nathb.torrentfinder.provider;
 import android.content.Context;
 import android.util.Log;
 
+import com.nathb.torrentfinder.TorrentFinderApplication;
 import com.nathb.torrentfinder.db.EpisodeDao;
 import com.nathb.torrentfinder.db.ShowDao;
 import com.nathb.torrentfinder.loader.LoaderResult;
@@ -17,23 +18,26 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 public class EpisodeProvider {
 
     private static final String TAG = EpisodeProvider.class.getSimpleName();
 
-    private Context mContext;
+    @Inject ShowDao mShowDao;
+    @Inject EpisodeDao mEpisodeDao;
     private Show mShow;
     private boolean mShowAllEpisodes;
     private int mShowId;
 
     public EpisodeProvider(Context context, Show show, boolean showAllEpisodes) {
-        mContext = context;
+        ((TorrentFinderApplication) context.getApplicationContext()).inject(this);
         mShow = show;
         mShowAllEpisodes = showAllEpisodes;
     }
 
     public EpisodeProvider(Context context, int showId, boolean showAllEpisodes) {
-        mContext = context;
+        ((TorrentFinderApplication) context.getApplicationContext()).inject(this);
         mShowId = showId;
         mShowAllEpisodes = showAllEpisodes;
     }
@@ -43,7 +47,7 @@ public class EpisodeProvider {
 
         // Get show information if required
         if (mShow == null) {
-            mShow = new ShowDao(mContext).get(String.valueOf(mShowId));
+            mShow = mShowDao.get(String.valueOf(mShowId));
             if (mShow == null) {
                 result.setError(new Exception("Show not found with id: " + mShowId));
                 return result;
@@ -62,8 +66,7 @@ public class EpisodeProvider {
         }
 
         // Get list of local episodes
-        final EpisodeDao episodeDao = new EpisodeDao(mContext);
-        final List<Episode> localEpisodes = episodeDao.getEpisodesForShow(mShow);
+        final List<Episode> localEpisodes = mEpisodeDao.getEpisodesForShow(mShow);
 
         // Merge the two lists to set as the result
         result.setResult(mergeEpisodeLists(mShow, remoteEpisodes, localEpisodes));

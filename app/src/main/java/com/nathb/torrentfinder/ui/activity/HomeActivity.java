@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.nathb.torrentfinder.R;
 import com.nathb.torrentfinder.TorrentFinderApplication;
-import com.nathb.torrentfinder.db.EpisodeDao;
 import com.nathb.torrentfinder.loader.AbstractLoader;
 import com.nathb.torrentfinder.loader.LoaderResult;
 import com.nathb.torrentfinder.loader.TorrentListLoader;
@@ -92,7 +91,7 @@ public class HomeActivity extends AbstractListLoaderActivity<TorrentDataWrapper>
     }
 
     private void email() {
-        mTorrentCollectionService.send(this, new EpisodeDao(this));
+        mTorrentCollectionService.send(this);
         mProgressText.setText("Torrent links will be sent via email");
         mProgressText.setVisibility(View.VISIBLE);
         mListView.setVisibility(View.GONE);
