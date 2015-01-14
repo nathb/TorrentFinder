@@ -47,6 +47,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("Suits", "Suits", "Suits"));
         db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("Silicon Valley", "Silicon Valley", "SiliconValley"));
         db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("The Big Bang Theory", "The Big Bang Theory", "BigBangTheory"));
+        db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("QI", "QI", "QI"));
+        db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("Once Upon a Time", "Once Upon a Time", "OnceUponaTime"));
+        db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("Archer", "Archer", "Archer"));
     }
 
     private ContentValues generateShowContentValues(String title, String torrentSearchTerm, String episodeListSearchTerm) {
