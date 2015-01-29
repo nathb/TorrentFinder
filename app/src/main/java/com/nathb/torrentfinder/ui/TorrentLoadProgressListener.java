@@ -30,6 +30,16 @@ public class TorrentLoadProgressListener implements TorrentListLoader.ProgressLi
     }
 
     @Override
+    public void onProgressStarted() {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mProgressTextView.setText("");
+            }
+        });
+    }
+
+    @Override
     public void onEpisodeStarted(Episode episode) {
         mTimer = System.currentTimeMillis();
         appendProgressTextLine(

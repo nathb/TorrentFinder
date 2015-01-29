@@ -29,13 +29,23 @@ import butterknife.InjectView;
 
 public class HomeActivity extends AbstractListLoaderActivity<TorrentDataWrapper> {
 
+    private static final String KEY_PROGRESS_TEXT = "KEY_PROGRESS_TEXT";
+
     @Inject TorrentCollectionService mTorrentCollectionService;
     @InjectView(R.id.ProgressText) TextView mProgressText;
+
+    private TorrentLoadProgressListener mProgressListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((TorrentFinderApplication) getApplication()).inject(this);
+
+        mProgressListener = new TorrentLoadProgressListener(mProgressText, new Handler());
+        final TorrentListLoader loader = (TorrentListLoader) getLoader();
+        if (loader != null) {
+            loader.setListener(mProgressListener);
+        }
     }
 
     @Override
@@ -50,12 +60,7 @@ public class HomeActivity extends AbstractListLoaderActivity<TorrentDataWrapper>
 
     @Override
     protected AbstractLoader createLoader() {
-        return new TorrentListLoader(this, new TorrentLoadProgressListener(mProgressText, new Handler()));
-    }
-
-    @Override
-    protected boolean shouldLoadOnCreate() {
-        return false;
+        return new TorrentListLoader(this, mProgressListener);
     }
 
     @Override
@@ -99,7 +104,7 @@ public class HomeActivity extends AbstractListLoaderActivity<TorrentDataWrapper>
 
     private void refresh() {
         onLoadStarted();
-        load();
+        reload();
     }
 
     private void browse() {
@@ -112,7 +117,6 @@ public class HomeActivity extends AbstractListLoaderActivity<TorrentDataWrapper>
     }
 
     private void onLoadStarted() {
-        mProgressText.setText("");
         mProgressText.setVisibility(View.VISIBLE);
     }
 
@@ -124,8 +128,21 @@ public class HomeActivity extends AbstractListLoaderActivity<TorrentDataWrapper>
 
         if (count > 0) {
             mProgressText.setVisibility(View.GONE);
+            mListView.smoothScrollToPosition(0);
         } else {
             mProgressText.setText("No torrents found");
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_PROGRESS_TEXT, mProgressText.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+        mProgressText.setText(state.getString(KEY_PROGRESS_TEXT, ""));
     }
 }

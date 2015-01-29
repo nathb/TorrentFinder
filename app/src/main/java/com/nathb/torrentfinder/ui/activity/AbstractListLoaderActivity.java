@@ -10,7 +10,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.nathb.torrentfinder.TorrentFinderApplication;
 import com.nathb.torrentfinder.loader.AbstractLoader;
 import com.nathb.torrentfinder.loader.LoaderResult;
 
@@ -30,6 +29,8 @@ public abstract class AbstractListLoaderActivity<T extends Comparable> extends L
     @InjectView(android.R.id.progress) ProgressBar mProgressBar;
 
     private ArrayAdapter<T> mAdapter;
+    private LoaderManager mLoaderManager;
+    private LoaderResult<List<T>> mLoaderResult;
 
     protected abstract int getContentViewId();
     protected abstract ArrayAdapter createAdapter();
@@ -37,9 +38,6 @@ public abstract class AbstractListLoaderActivity<T extends Comparable> extends L
 
     protected String getActionBarTitle() {
         return "TF";
-    }
-    protected boolean shouldLoadOnCreate() {
-        return true;
     }
 
     @Override
@@ -49,37 +47,28 @@ public abstract class AbstractListLoaderActivity<T extends Comparable> extends L
         ButterKnife.inject(this);
         mAdapter = createAdapter();
         mListView.setAdapter(mAdapter);
+        mLoaderManager = getLoaderManager();
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         getActionBar().setTitle(getActionBarTitle());
-
-        // If an existing loader has data show it
-        // Else init a loader unless the activity calls for lazy loading
-        final AbstractLoader loader = (AbstractLoader) getLoaderManager().getLoader(LOADER_ID);
-        if (loader != null && loader.getData() != null && !loader.isStarted()) {
-            onLoadFinished(loader, (LoaderResult<List<T>>) loader.getData());
-        } else if (shouldLoadOnCreate()) {
-            load();
-        } else {
-            hideSpinner();
-        }
+        showSpinner();
+        mLoaderManager.initLoader(LOADER_ID, null, this);
     }
 
-    protected void load() {
+    protected void reload() {
         showSpinner();
-        getLoaderManager().restartLoader(LOADER_ID, null, this);
+        mLoaderManager.restartLoader(LOADER_ID, null, this);
+    }
+
+    protected Loader getLoader() {
+        return mLoaderManager.getLoader(LOADER_ID);
     }
 
     protected LoaderResult<List<T>> getLoaderResult() {
-        LoaderResult<List<T>> loaderResult = null;
-        final AbstractLoader loader = (AbstractLoader) getLoaderManager().getLoader(LOADER_ID);
-        if (loader != null) {
-            loaderResult = loader.getData();
-        }
-        return loaderResult;
+        return mLoaderResult;
     }
 
     @Override
@@ -102,6 +91,7 @@ public abstract class AbstractListLoaderActivity<T extends Comparable> extends L
         }
         hideSpinner();
         mAdapter.notifyDataSetChanged();
+        mLoaderResult = data;
     }
 
     @Override

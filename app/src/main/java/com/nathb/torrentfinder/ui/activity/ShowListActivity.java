@@ -109,7 +109,7 @@ public class ShowListActivity extends AbstractListLoaderActivity<Show> {
 
         @Override
         public void onShowDeleted() {
-            load();
+            reload();
         }
     }
 
@@ -117,7 +117,7 @@ public class ShowListActivity extends AbstractListLoaderActivity<Show> {
 
         @Override
         public void onShowAdded() {
-            load();
+            reload();
         }
     }
 }

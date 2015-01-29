@@ -22,6 +22,7 @@ import javax.inject.Inject;
 public class TorrentListLoader extends AbstractLoader<TorrentDataWrapper> {
 
     public interface ProgressListener {
+        void onProgressStarted();
         void onEpisodeStarted(Episode episode);
         void onEpisodeFinished(Episode episode, int torrentCount);
     }
@@ -39,8 +40,13 @@ public class TorrentListLoader extends AbstractLoader<TorrentDataWrapper> {
         mShouldQuerySingleEpisode = Config.getSingleEpisodePreference(context);
     }
 
+    public void setListener(ProgressListener listener) {
+        mListener = listener;
+    }
+
     @Override
     public LoaderResult<List<TorrentDataWrapper>> loadInBackground() {
+        mListener.onProgressStarted();
         final List<TorrentDataWrapper> latestTorrents = new ArrayList<TorrentDataWrapper>();
         final LoaderResult<List<TorrentDataWrapper>> result = new LoaderResult<List<TorrentDataWrapper>>();
         result.setResult(latestTorrents);

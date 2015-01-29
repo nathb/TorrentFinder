@@ -3,8 +3,6 @@ package com.nathb.torrentfinder.loader;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
-import com.nathb.torrentfinder.TorrentFinderApplication;
-
 import java.util.List;
 
 public abstract class AbstractLoader<D> extends AsyncTaskLoader<LoaderResult<List<D>>> {
@@ -13,10 +11,6 @@ public abstract class AbstractLoader<D> extends AsyncTaskLoader<LoaderResult<Lis
 
     public AbstractLoader(Context context) {
         super(context);
-    }
-
-    public LoaderResult<List<D>> getData() {
-        return mData;
     }
 
     @Override
@@ -32,13 +26,11 @@ public abstract class AbstractLoader<D> extends AsyncTaskLoader<LoaderResult<Lis
 
     @Override
     public void deliverResult(LoaderResult<List<D>> data) {
-        if (isReset()) {
-            // An async query came in while the loader is stopped
-            return;
-        }
-
         mData = data;
-        super.deliverResult(data);
+        if (isStarted()) {
+            // If the Loader is currently started, we can immediately deliver its results.
+            super.deliverResult(data);
+        }
     }
 
 
@@ -46,6 +38,10 @@ public abstract class AbstractLoader<D> extends AsyncTaskLoader<LoaderResult<Lis
     protected void onStopLoading() {
         // Attempt to cancel the current load task if possible.
         cancelLoad();
+
+        if (mData != null) {
+            mData = null;
+        }
     }
 
     @Override

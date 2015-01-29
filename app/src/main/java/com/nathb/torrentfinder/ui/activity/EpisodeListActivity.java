@@ -63,7 +63,7 @@ public class EpisodeListActivity extends AbstractListLoaderActivity<Episode> {
                 setAllDownloaded();
                 return true;
             case R.id.action_refresh:
-                load();
+                reload();
                 return true;
         }
         return super.onOptionsItemSelected(item);
