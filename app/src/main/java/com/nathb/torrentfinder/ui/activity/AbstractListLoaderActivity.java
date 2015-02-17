@@ -71,6 +71,10 @@ public abstract class AbstractListLoaderActivity<T extends Comparable> extends L
         return mLoaderResult;
     }
 
+    protected void destroyLoader() {
+        mLoaderManager.destroyLoader(LOADER_ID);
+    }
+
     @Override
     public Loader<LoaderResult<List<T>>> onCreateLoader(int id, Bundle args) {
         return createLoader();

@@ -132,6 +132,8 @@ public class HomeActivity extends AbstractListLoaderActivity<TorrentDataWrapper>
         } else {
             mProgressText.setText("No torrents found");
         }
+
+        destroyLoader();
     }
 
     @Override
