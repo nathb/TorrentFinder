@@ -92,7 +92,7 @@ public class TorrentListLoader extends AbstractLoader<TorrentDataWrapper> {
 
                 // If there were not enough torrents to reach the limit,
                 // it is likely the episode has not been released yet
-                if (torrentsFound == TorrentService.LIMIT) {
+                if (torrentsFound >= TorrentService.LIMIT - 2) {
                     for (Torrent torrent : torrents) {
                         latestTorrents.add(new TorrentDataWrapper(show, episode, torrent));
                     }
