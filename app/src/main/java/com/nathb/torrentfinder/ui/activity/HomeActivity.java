@@ -111,11 +111,6 @@ public class HomeActivity extends AbstractListLoaderActivity<TorrentDataWrapper>
         startActivity(new Intent(this, ShowListActivity.class));
     }
 
-    @Override
-    protected void handleLoaderException(Exception e) {
-        super.handleLoaderException(e);
-    }
-
     private void onLoadStarted() {
         mProgressText.setVisibility(View.VISIBLE);
     }
