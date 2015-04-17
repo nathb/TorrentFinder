@@ -45,12 +45,13 @@ public class KickAssService extends AbstractJsonTorrentService {
     protected List<Torrent> parseResponse(JSONObject jsonResponse) throws JSONException {
         List<Torrent> torrents = new ArrayList<Torrent>();
         final int totalResults = jsonResponse.getInt("total_results");
-        if (totalResults < LIMIT) {
+        final int resultLimit = Config.getTorrentResultLimit(mContext);
+        if (totalResults < resultLimit) {
             return  torrents;
         }
 
         final JSONArray list = jsonResponse.getJSONArray("list");
-        for (int i = 0; i < LIMIT; i++) {
+        for (int i = 0; i < resultLimit; i++) {
             final JSONObject jsonTorrent = list.getJSONObject(i);
             torrents.add(new Torrent(
                 jsonTorrent.getString("title"),

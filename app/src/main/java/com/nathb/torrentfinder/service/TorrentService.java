@@ -8,6 +8,6 @@ import com.nathb.torrentfinder.service.exception.TorrentResponseException;
 import java.util.List;
 
 public interface TorrentService {
-    public static final int LIMIT = 5;
+    public static final int DEFAULT_LIMIT = 5;
     public List<Torrent> getTorrents(Show show, Episode episode) throws TorrentResponseException;
 }

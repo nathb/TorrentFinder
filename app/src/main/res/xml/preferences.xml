@@ -23,4 +23,9 @@
         android:key="@string/key_kickass_url"
         android:title="@string/settings_label_kickass_url"/>
 
+    <com.nathb.torrentfinder.ui.preference.EditTextWithSummaryPreference
+        android:key="@string/key_torrent_result_limit"
+        android:inputType="number"
+        android:title="@string/settings_label_torrent_result_limit"/>
+
 </PreferenceScreen>

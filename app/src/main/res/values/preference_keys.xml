@@ -5,4 +5,5 @@
     <string name="key_torrent_service">key_torrent_service</string>
     <string name="key_the_pirate_bay_url">key_the_pirate_bay_url</string>
     <string name="key_kickass_url">key_kickass_url</string>
+    <string name="key_torrent_result_limit">key_torrent_result_limit</string>
 </resources>

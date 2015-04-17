@@ -1,5 +1,8 @@
 package com.nathb.torrentfinder.service.impl;
 
+import android.content.Context;
+
+import com.nathb.torrentfinder.config.Config;
 import com.nathb.torrentfinder.model.Episode;
 import com.nathb.torrentfinder.model.Show;
 import com.nathb.torrentfinder.model.Torrent;
@@ -16,7 +19,13 @@ public class OldPirateBayService extends AbstractJsoupTorrentService {
 
     private static final String BASE_URL = "https://oldpiratebay.org/search.php?q=";
     private static final String SORT_ORDER = "&Torrent_sort=seeders.desc";
+
+    private Context mContext;
     private String mTitleLower;
+
+    public OldPirateBayService(Context context) {
+        mContext = context;
+    }
 
     @Override
     protected String buildUrl(Show show, Episode episode) {
@@ -31,7 +40,8 @@ public class OldPirateBayService extends AbstractJsoupTorrentService {
     @Override
     protected List<Torrent> parseResponse(Document document) {
         final List<Torrent> torrents = new ArrayList<Torrent>();
-        final Elements searchResults = document.select("tr[class]:lt(" + (LIMIT) + ")");
+        final int resultLimit = Config.getTorrentResultLimit(mContext);
+        final Elements searchResults = document.select("tr[class]:lt(" + (resultLimit) + ")");
         for (Element element : searchResults) {
             final String title = element.select("td.title-row span").html();
 

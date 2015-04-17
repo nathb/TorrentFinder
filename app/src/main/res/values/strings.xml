@@ -28,4 +28,5 @@
     <string name="settings_label_torrent_service">Torrent Service</string>
     <string name="settings_label_the_pirate_bay_url">ThePirateBay URL</string>
     <string name="settings_label_kickass_url">Kickass URL</string>
+    <string name="settings_label_torrent_result_limit">Torrent Result Limit</string>
 </resources>

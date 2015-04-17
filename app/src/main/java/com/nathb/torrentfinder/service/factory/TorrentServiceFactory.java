@@ -26,7 +26,7 @@ public class TorrentServiceFactory {
                 service = new ThePirateBayService(context);
                 break;
             case OldPirateBay:
-                service = new OldPirateBayService();
+                service = new OldPirateBayService(context);
                 break;
             case KickAss:
                 service = new KickAssService(context);

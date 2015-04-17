@@ -43,7 +43,8 @@ public class ThePirateBayService extends AbstractJsoupTorrentService {
     @Override
     protected List<Torrent> parseResponse(Document document) {
         final List<Torrent> torrents = new ArrayList<Torrent>();
-        final Elements searchResults = document.select("#searchResult tr:not(.header):lt(" + (LIMIT) + ")");
+        final int resultLimit = Config.getTorrentResultLimit(mContext);
+        final Elements searchResults = document.select("#searchResult tr:not(.header):lt(" + (resultLimit) + ")");
         for (Element element : searchResults) {
             final String description = element.select(".detDesc").html();
             torrents.add(new Torrent(

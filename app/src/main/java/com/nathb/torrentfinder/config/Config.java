@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import com.nathb.torrentfinder.R;
+import com.nathb.torrentfinder.service.TorrentService;
 import com.nathb.torrentfinder.service.factory.TorrentServiceFactory.TorrentServiceType;
 import com.nathb.torrentfinder.service.impl.KickAssService;
 import com.nathb.torrentfinder.service.impl.ThePirateBayService;
@@ -55,5 +56,25 @@ public class Config {
     private static String getString(Context context, String key, String defaultValue) {
         final String value = getSharedPreferences(context).getString(key, defaultValue);
         return TextUtils.isEmpty(value) ? defaultValue : value;
+    }
+
+    public static int getTorrentResultLimit(Context context) {
+        final String key = getKey(context, R.string.key_torrent_result_limit);
+        return getInt(context, key, TorrentService.DEFAULT_LIMIT);
+    }
+
+    private static Integer getInt(Context context, String key, int defaultValue) {
+        final String stringValue = getSharedPreferences(context).getString(key, "");
+        if (TextUtils.isEmpty(stringValue)) {
+            return defaultValue;
+        }
+
+        Integer intValue = null;
+        try {
+            intValue = Integer.parseInt(stringValue);
+        } catch (NumberFormatException e) {
+        }
+
+        return intValue != null ? intValue : defaultValue;
     }
 }
