@@ -27,4 +27,5 @@
     <string name="settings_description_single_episode">Only find torrents for the first episode which has not been downloaded instead of all undownloaded episodes</string>
     <string name="settings_label_torrent_service">Torrent Service</string>
     <string name="settings_label_the_pirate_bay_url">ThePirateBay URL</string>
+    <string name="settings_label_kickass_url">Kickass URL</string>
 </resources>

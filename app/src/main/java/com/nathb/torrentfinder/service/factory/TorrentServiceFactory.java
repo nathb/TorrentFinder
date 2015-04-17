@@ -29,7 +29,7 @@ public class TorrentServiceFactory {
                 service = new OldPirateBayService();
                 break;
             case KickAss:
-                service = new KickAssService();
+                service = new KickAssService(context);
                 break;
             case SFWTorrent:
                 service = new SFWTorrentService();

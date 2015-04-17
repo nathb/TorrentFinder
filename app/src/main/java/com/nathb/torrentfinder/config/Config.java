@@ -3,9 +3,11 @@ package com.nathb.torrentfinder.config;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 
 import com.nathb.torrentfinder.R;
 import com.nathb.torrentfinder.service.factory.TorrentServiceFactory.TorrentServiceType;
+import com.nathb.torrentfinder.service.impl.KickAssService;
 import com.nathb.torrentfinder.service.impl.ThePirateBayService;
 
 public class Config {
@@ -42,6 +44,16 @@ public class Config {
 
     public static String getThePirateBayUrl(Context context) {
         final String key = getKey(context, R.string.key_the_pirate_bay_url);
-        return getSharedPreferences(context).getString(key, ThePirateBayService.DEFAULT_URL);
+        return getString(context, key, ThePirateBayService.DEFAULT_URL);
+    }
+
+    public static String getKickassUrl(Context context) {
+        final String key = getKey(context, R.string.key_kickass_url);
+        return getString(context, key, KickAssService.DEFAULT_URL);
+    }
+
+    private static String getString(Context context, String key, String defaultValue) {
+        final String value = getSharedPreferences(context).getString(key, defaultValue);
+        return TextUtils.isEmpty(value) ? defaultValue : value;
     }
 }

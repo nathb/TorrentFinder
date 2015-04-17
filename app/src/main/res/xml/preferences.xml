@@ -19,4 +19,8 @@
         android:key="@string/key_the_pirate_bay_url"
         android:title="@string/settings_label_the_pirate_bay_url"/>
 
+    <com.nathb.torrentfinder.ui.preference.EditTextWithSummaryPreference
+        android:key="@string/key_kickass_url"
+        android:title="@string/settings_label_kickass_url"/>
+
 </PreferenceScreen>
