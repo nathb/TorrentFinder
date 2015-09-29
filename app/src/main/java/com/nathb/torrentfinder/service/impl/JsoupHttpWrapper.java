@@ -4,6 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class JsoupHttpWrapper {
 
@@ -15,6 +16,12 @@ public class JsoupHttpWrapper {
                 .userAgent(USER_AGENT)
                 .referrer(REFERRER)
                 .get();
+    }
+
+    public static Document post(String url, Map<String, String> postData) throws IOException {
+        return Jsoup.connect(url)
+                .data(postData)
+                .post();
     }
 
 }

@@ -13,7 +13,9 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,15 +29,19 @@ public class EpGuidesService implements EpisodeListService {
     private Pattern mSeasonPattern;
     private Pattern mEpisodePattern;
 
+    private Map<String, String> mPostData;
+
     public EpGuidesService() {
         mSeasonPattern = Pattern.compile(SEASON_REGEX);
         mEpisodePattern = Pattern.compile(EPISODE_REGEX);
+        mPostData = new HashMap<String, String>();
+        mPostData.put("list", "tvrage.com");
     }
 
     @Override
     public List<Episode> getEpisodes(Show show) throws IOException {
         final String url = buildUrl(show.getEpisodeListSearchTerm());
-        final Document document = JsoupHttpWrapper.get(url);
+        final Document document = JsoupHttpWrapper.post(url, mPostData);
         return parseResponse(document);
     }
 
@@ -44,7 +50,7 @@ public class EpGuidesService implements EpisodeListService {
                 .encodedPath(BASE_URL)
                 .appendPath(title)
                 .build()
-                .toString();
+                .toString() + "/";
     }
 
     private List<Episode> parseResponse(Document document) {
