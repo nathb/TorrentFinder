@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.nathb.torrentfinder.R;
 import com.nathb.torrentfinder.service.TorrentService;
+import com.nathb.torrentfinder.service.factory.EpisodeListServiceFactory.EpisodeListServiceType;
 import com.nathb.torrentfinder.service.factory.TorrentServiceFactory.TorrentServiceType;
 import com.nathb.torrentfinder.service.impl.KickAssService;
 import com.nathb.torrentfinder.service.impl.ThePirateBayService;
@@ -41,6 +42,18 @@ public class Config {
         }
 
         return type != null ? type : TorrentServiceType.ThePirateBay;
+    }
+
+    public static EpisodeListServiceType getEpisodeListServiceType(Context context) {
+        final String key = getKey(context, R.string.key_episode_list_service);
+        final String value = getSharedPreferences(context).getString(key, null);
+
+        EpisodeListServiceType type = null;
+        if (value != null) {
+            type = EpisodeListServiceType.valueOf(value);
+        }
+
+        return type != null ? type : EpisodeListServiceType.EpGuidesTVMaze;
     }
 
     public static String getThePirateBayUrl(Context context) {

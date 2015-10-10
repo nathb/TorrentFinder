@@ -10,7 +10,7 @@ import com.nathb.torrentfinder.loader.LoaderResult;
 import com.nathb.torrentfinder.model.Episode;
 import com.nathb.torrentfinder.model.Show;
 import com.nathb.torrentfinder.service.EpisodeListService;
-import com.nathb.torrentfinder.service.impl.EpGuidesService;
+import com.nathb.torrentfinder.service.factory.EpisodeListServiceFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,18 +26,21 @@ public class EpisodeProvider {
 
     @Inject ShowDao mShowDao;
     @Inject EpisodeDao mEpisodeDao;
+    private Context mContext;
     private Show mShow;
     private boolean mShowAllEpisodes;
     private int mShowId;
 
     public EpisodeProvider(Context context, Show show, boolean showAllEpisodes) {
         ((TorrentFinderApplication) context.getApplicationContext()).inject(this);
+        mContext = context;
         mShow = show;
         mShowAllEpisodes = showAllEpisodes;
     }
 
     public EpisodeProvider(Context context, int showId, boolean showAllEpisodes) {
         ((TorrentFinderApplication) context.getApplicationContext()).inject(this);
+        mContext = context;
         mShowId = showId;
         mShowAllEpisodes = showAllEpisodes;
     }
@@ -55,7 +58,7 @@ public class EpisodeProvider {
         }
 
         // Get list of remote episodes
-        final EpisodeListService episodeListService = new EpGuidesService();
+        final EpisodeListService episodeListService = EpisodeListServiceFactory.get(mContext);
         final List<Episode> remoteEpisodes;
         try {
             remoteEpisodes = episodeListService.getEpisodes(mShow);

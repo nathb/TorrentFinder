@@ -18,7 +18,7 @@ public class TorrentServiceFactory {
         SFWTorrent
     }
 
-    public static TorrentService getTorrentService(Context context) {
+    public static TorrentService get(Context context) {
         final TorrentServiceType type = Config.getTorrentServiceType(context);
         final TorrentService service;
         switch (type) {

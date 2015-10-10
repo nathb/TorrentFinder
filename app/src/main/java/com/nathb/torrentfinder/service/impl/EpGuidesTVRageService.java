@@ -1,28 +1,20 @@
 package com.nathb.torrentfinder.service.impl;
 
-import android.net.Uri;
 import android.text.TextUtils;
 
 import com.nathb.torrentfinder.model.Episode;
-import com.nathb.torrentfinder.model.Show;
-import com.nathb.torrentfinder.service.EpisodeListService;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EpGuidesService implements EpisodeListService {
+public class EpGuidesTVRageService extends AbstractEpGuidesService {
 
-    // http://epguides.com/BigBangTheory/
-    private static final String BASE_URL = "http://epguides.com";
     private static final String SEASON_REGEX = "season \\d{1,2}";
     private static final String EPISODE_REGEX = "episode \\d{1,2}";
 
@@ -31,7 +23,7 @@ public class EpGuidesService implements EpisodeListService {
 
     private Map<String, String> mPostData;
 
-    public EpGuidesService() {
+    public EpGuidesTVRageService() {
         mSeasonPattern = Pattern.compile(SEASON_REGEX);
         mEpisodePattern = Pattern.compile(EPISODE_REGEX);
         mPostData = new HashMap<String, String>();
@@ -39,33 +31,12 @@ public class EpGuidesService implements EpisodeListService {
     }
 
     @Override
-    public List<Episode> getEpisodes(Show show) throws IOException {
-        final String url = buildUrl(show.getEpisodeListSearchTerm());
-        final Document document = JsoupHttpWrapper.post(url, mPostData);
-        return parseResponse(document);
+    protected Document getDocument(String url) throws IOException {
+        return JsoupHttpWrapper.post(url, mPostData);
     }
 
-    private String buildUrl(String title) {
-        return new Uri.Builder()
-                .encodedPath(BASE_URL)
-                .appendPath(title)
-                .build()
-                .toString() + "/";
-    }
-
-    private List<Episode> parseResponse(Document document) {
-        final List<Episode> episodes = new ArrayList<Episode>();
-        final Elements result = document.select("pre a");
-        for (Element element : result) {
-            final Episode episode = parseEpisode(element);
-            if (episode != null) {
-                episodes.add(episode);
-            }
-        }
-        return episodes;
-    }
-
-    private Episode parseEpisode(Element element) {
+    @Override
+    protected Episode parseEpisode(Element element) {
         final String title = element.html();
 
         int seasonNumber = -1;
@@ -94,4 +65,5 @@ public class EpGuidesService implements EpisodeListService {
         }
         return episode;
     }
+
 }

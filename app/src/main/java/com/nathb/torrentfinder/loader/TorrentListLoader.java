@@ -51,7 +51,7 @@ public class TorrentListLoader extends AbstractLoader<TorrentDataWrapper> {
         final LoaderResult<List<TorrentDataWrapper>> result = new LoaderResult<List<TorrentDataWrapper>>();
         result.setResult(latestTorrents);
 
-        final TorrentService torrentService = TorrentServiceFactory.getTorrentService(getContext());
+        final TorrentService torrentService = TorrentServiceFactory.get(getContext());
 
         // Get all shows from database
         final List<Show> shows = mShowDao.getAll();

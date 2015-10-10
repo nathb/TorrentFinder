@@ -6,6 +6,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 
 import com.nathb.torrentfinder.R;
+import com.nathb.torrentfinder.service.factory.EpisodeListServiceFactory.EpisodeListServiceType;
 import com.nathb.torrentfinder.service.factory.TorrentServiceFactory.TorrentServiceType;
 
 public class SettingsActivity extends PreferenceActivity {
@@ -23,13 +24,14 @@ public class SettingsActivity extends PreferenceActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
-            addTorrentServicesListPreference();
+            generateListPreferenceFromEnum(R.string.key_torrent_service, TorrentServiceType.class);
+            generateListPreferenceFromEnum(R.string.key_episode_list_service, EpisodeListServiceType.class);
         }
 
-        private void addTorrentServicesListPreference() {
-            final String torrentServiceKey = getString(R.string.key_torrent_service);
-            final ListPreference listPreference = (ListPreference) findPreference(torrentServiceKey);
-            final TorrentServiceType[] types = TorrentServiceType.values();
+        private <E extends Enum <E>> void generateListPreferenceFromEnum(int listPreferenceKey, Class<E> enumType) {
+            final String keyString = getString(listPreferenceKey);
+            final ListPreference listPreference = (ListPreference) findPreference(keyString);
+            final Enum[] types = enumType.getEnumConstants();
             final CharSequence[] typeStrings = new CharSequence[types.length];
             for (int i = 0; i < types.length; i++) {
                 typeStrings[i] = types[i].toString();
