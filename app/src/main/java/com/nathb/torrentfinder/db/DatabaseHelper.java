@@ -42,15 +42,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("Game of Thrones", "Game of Thrones", "GameofThrones"));
         db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("New Girl", "New Girl", "NewGirl"));
         db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("Modern Family", "Modern Family", "ModernFamily"));
-        db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("Parks and Recreation", "Parks and Recreation", "ParksandRecreation"));
-        db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("Revenge", "Revenge", "Revenge"));
         db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("Suits", "Suits", "Suits"));
         db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("Silicon Valley", "Silicon Valley", "SiliconValley"));
         db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("The Big Bang Theory", "The Big Bang Theory", "BigBangTheory"));
         db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("QI", "QI", "QI"));
         db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("Once Upon a Time", "Once Upon a Time", "OnceUponaTime"));
         db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("Archer", "Archer", "Archer"));
-        db.insert(ShowDao.TABLE_NAME, null, generateShowContentValues("Top Gear", "Top Gear", "TopGear"));
     }
 
     private ContentValues generateShowContentValues(String title, String torrentSearchTerm, String episodeListSearchTerm) {
