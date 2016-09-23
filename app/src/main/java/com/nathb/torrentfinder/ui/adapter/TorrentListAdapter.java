@@ -21,7 +21,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 public class TorrentListAdapter extends ArrayAdapter<TorrentDataWrapper> {
 
@@ -115,21 +115,21 @@ public class TorrentListAdapter extends ArrayAdapter<TorrentDataWrapper> {
     }
 
     static class ViewHolder {
-        @InjectView(R.id.Title) TextView mTitle;
-        @InjectView(R.id.UploadedDate) TextView mUploadedDate;
-        @InjectView(R.id.UploadedByUserName) TextView mUploadedByUserName;
-        @InjectView(R.id.Size) TextView mSize;
-        @InjectView(R.id.SeedersAndLeechers) TextView mSeedersAndLeechers;
-        @InjectView(R.id.ToDownloadCheckbox) CheckBox mToDownloadCheckbox;
+        @BindView(R.id.Title) TextView mTitle;
+        @BindView(R.id.UploadedDate) TextView mUploadedDate;
+        @BindView(R.id.UploadedByUserName) TextView mUploadedByUserName;
+        @BindView(R.id.Size) TextView mSize;
+        @BindView(R.id.SeedersAndLeechers) TextView mSeedersAndLeechers;
+        @BindView(R.id.ToDownloadCheckbox) CheckBox mToDownloadCheckbox;
 
         public ViewHolder(View view) {
-            ButterKnife.inject(this, view);
+            ButterKnife.bind(this, view);
         }
     }
 
     static class HeaderViewHolder extends ViewHolder {
-        @InjectView(R.id.ShowTitle) TextView mShowTitle;
-        @InjectView(R.id.EpisodeTitle) TextView mEpisodeTitle;
+        @BindView(R.id.ShowTitle) TextView mShowTitle;
+        @BindView(R.id.EpisodeTitle) TextView mEpisodeTitle;
 
         public HeaderViewHolder(View view) {
             super(view);

@@ -17,16 +17,16 @@ import java.util.Collections;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 public abstract class AbstractListLoaderActivity<T extends Comparable> extends ListActivity
         implements LoaderManager.LoaderCallbacks<LoaderResult<List<T>>> {
 
     private static final int LOADER_ID = 1;
 
-    @InjectView(android.R.id.list) ListView mListView;
+    @BindView(android.R.id.list) ListView mListView;
 
-    @InjectView(android.R.id.progress) ProgressBar mProgressBar;
+    @BindView(android.R.id.progress) ProgressBar mProgressBar;
 
     private ArrayAdapter<T> mAdapter;
     private LoaderManager mLoaderManager;
@@ -44,7 +44,7 @@ public abstract class AbstractListLoaderActivity<T extends Comparable> extends L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         mAdapter = createAdapter();
         mListView.setAdapter(mAdapter);
         mLoaderManager = getLoaderManager();

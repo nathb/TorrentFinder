@@ -16,7 +16,7 @@ import com.nathb.torrentfinder.task.UpdateEpisodeTask;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 public class EpisodeListAdapter extends ArrayAdapter<Episode> {
 
@@ -63,11 +63,11 @@ public class EpisodeListAdapter extends ArrayAdapter<Episode> {
     }
 
     static class ViewHolder {
-        @InjectView(R.id.Title) TextView mTitle;
-        @InjectView(R.id.IsDownloadedCheckBox)CheckBox mIsDownloadedCheckBox;
+        @BindView(R.id.Title) TextView mTitle;
+        @BindView(R.id.IsDownloadedCheckBox) CheckBox mIsDownloadedCheckBox;
 
         public ViewHolder(View view) {
-            ButterKnife.inject(this, view);
+            ButterKnife.bind(this, view);
         }
     }
 

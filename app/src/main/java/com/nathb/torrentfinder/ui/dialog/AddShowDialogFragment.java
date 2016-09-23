@@ -17,16 +17,16 @@ import com.nathb.torrentfinder.model.Show;
 import com.nathb.torrentfinder.task.AddShowTask;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 import butterknife.OnTextChanged;
 
 public class AddShowDialogFragment extends DialogFragment {
 
     public static final String TAG = AddShowDialogFragment.class.getSimpleName();
 
-    @InjectView(R.id.TitleInput) EditText mTitleInput;
-    @InjectView(R.id.TorrentSeachTermInput) EditText mTorrentSearchTermInput;
-    @InjectView(R.id.EpisodeListTermInput) EditText mEpisodeListTermInput;
+    @BindView(R.id.TitleInput) EditText mTitleInput;
+    @BindView(R.id.TorrentSeachTermInput) EditText mTorrentSearchTermInput;
+    @BindView(R.id.EpisodeListTermInput) EditText mEpisodeListTermInput;
 
     private AddShowTask.OnShowAddedListener mListener;
 
@@ -38,7 +38,7 @@ public class AddShowDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Activity activity = getActivity();
         final View view = activity.getLayoutInflater().inflate(R.layout.dialog_add_show, null);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
 
         final AlertDialog alertDialog  = new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.dialog_add_show_title)

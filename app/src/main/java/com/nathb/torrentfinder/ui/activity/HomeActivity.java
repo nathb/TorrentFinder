@@ -25,14 +25,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.InjectView;
+import butterknife.BindView;
 
 public class HomeActivity extends AbstractListLoaderActivity<TorrentDataWrapper> {
 
     private static final String KEY_PROGRESS_TEXT = "KEY_PROGRESS_TEXT";
 
     @Inject TorrentCollectionService mTorrentCollectionService;
-    @InjectView(R.id.ProgressText) TextView mProgressText;
+    @BindView(R.id.ProgressText) TextView mProgressText;
 
     private TorrentLoadProgressListener mProgressListener;
 
